@@ -12,10 +12,11 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
+
 @NoArgsConstructor
 @Entity
-@Table(name = "dealer")
-public class Dealer extends AuditModel {
+@Table(name = "product")
+public class Product extends AuditModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,12 +25,8 @@ public class Dealer extends AuditModel {
     @Column(nullable = false)
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "dealer_product",
-            joinColumns = {@JoinColumn(name = "dealer_id")},
-            inverseJoinColumns = {@JoinColumn(name = "product_id")}
-    )
-    private List<Product> productList = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "productList", cascade = CascadeType.ALL)
+    private List<Dealer> dealers = new ArrayList<>();
 
 }
